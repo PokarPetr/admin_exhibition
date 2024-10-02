@@ -9,9 +9,12 @@ cd admin_exhibition
 
 ## Установка
 Создайте виртуальное окружение:
+```bash
 python -m venv venv
+```
 
 Активируйте виртуальное окружение:
+
 Windows:
 ```bash
 venv\Scripts\activate
@@ -26,7 +29,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Запуск сервура
+## Запуск сервера
 Для запуска сервера:
 ```bash
 uvicorn app:app --reload
