@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirm Deletion{% endblock %}
+
+{% block content %}
+    <main>
+        <h1>Confirm Deletion</h1>
+        <p>Are you sure you want to delete the breed "{{ breed.name }}"?</p>
+        <form action="{{ url_for('delete_breed_action', breed_id=breed.id) }}" method="post">
+            <button type="submit">Delete</button>
+            <a href="{{ url_for('breeds') }}">Cancel</a>
+        </form>
+    </main>
+{% endblock %}

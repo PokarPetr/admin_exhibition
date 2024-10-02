@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Cat Exhibition{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <link rel="stylesheet" href="{{ request.url_for('static', path='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar with menu -->
+        <div class="menu">
+            <ul>
+                {% for item in menu %}
+                <li><a href="{{ request.url_for(item.name) }}">{{ item.route }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Main content area -->
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Our Kittens{% endblock %}
+
+{% block content %}
+    <h1>Kittens</h1>
+
+    <!-- Filter by breed -->
+    <form class="filter" method="get" action="/kittens">
+<!--        <label for="breed">Filter by Breed:</label>-->
+        <select name="breed" id="breed">
+            <option value="0">All Breeds</option>
+            {% for breed in breeds if breed.is_active %}
+               <option value="{{ breed.id }}">{{ breed.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Filter</button>
+    </form>
+
+    <!-- Kitten grid -->
+    <div class="kitten-grid">
+        {% for kitten in kittens %}
+            <div class="kitten-card">
+                <p><strong>Code:</strong>{{ kitten.nickname }}</p>
+                <p><strong>Name:</strong>{{ kitten.name }}</p>
+                <p><strong>Breed:</strong> {{ kitten.breed.name }}</p>
+                <p><strong>Age:</strong> {{ kitten.age_months }}</p>
+                <p><strong>Color:</strong> {{ kitten.color }}</p>
+                <p><a href="{{ url_for('update_kitten', kitten_id=kitten.id) }}" class="animal_btn">Update</a></p>
+                <p><a href="{{ url_for('delete_kitten', kitten_id=kitten.id) }}" class="animal_btn">Delete</a></p>
+
+            </div>
+
+        {% endfor %}
+    </div>
+
+    <!-- Add new kitten button -->
+    <div class="add-button">
+        <a href="{{ url_for('add_kitten') }}" class="btn">Add a Kitten</a>
+    </div>
+
+{% endblock %}

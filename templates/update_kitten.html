@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Kitten{% endblock %}
+
+{% block content %}
+<h1>Update Kitten</h1>
+<form method="post" action="/update_kitten/{{ kitten.id }}">
+    <label for="nickname">Code:</label>
+    <input type="text" id="nickname" name="nickname" value="{{ kitten.nickname }}" readonly >
+
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" value="{{ kitten.name }}">
+
+    <label for="color">Color:</label>
+    <input type="text" id="color" name="color" value="{{ kitten.color }}">
+
+    <label for="age_months">Age (in months):</label>
+    <input type="number" id="age_months" name="age_months" value="{{ kitten.age_months }}">
+
+    <label for="description">Description:</label>
+    <textarea id="description" name="description">{{ kitten.description }}</textarea>
+
+    <label for="breed_id">Breed:</label>
+    <select id="breed_id" name="breed_id">
+        {% for breed in breeds if breed.is_active %}
+            <option value="{{ breed.id }}" >
+                {{ breed.name }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Update Kitten</button>
+</form>
+<a href="{{ url_for('kittens') }}">Back to Kittens</a>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Cat Breeds{% endblock %}
+
+{% block content %}
+    <main>
+        <h1>Breeds</h1>
+        <div class="breed-grid">
+            {% for breed in breeds %}
+                {% if breed.is_active %}
+                    <div class="breed-card">
+                        <h2>{{ breed.name }}</h2>
+                        <p class="description"><strong>Description:</strong> {{ breed.description }}</p>
+                        <p><strong>ID:</strong> {{ breed.id if breed.id is not none else '' }}</p>
+                        <p><strong>Type:</strong> {{ breed.type if breed.type is not none else '' }}</p>
+                        <div class="button-group">
+                            <a href="{{ url_for('update_breed', breed_id=breed.id) }}" class="btn">Update</a>
+                            <a href="{{ url_for('delete_breed', breed_id=breed.id) }}" class="btn">Delete</a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="add-breed-button">
+            <a href="{{ url_for('add_breed') }}" class="btn add-breed">Add a Breed</a>
+        </div>
+    </main>
+{% endblock %}

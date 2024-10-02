@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Add a Breed{% endblock %}
+
+{% block content %}
+    <main>
+        <h1>Add a New Breed</h1>
+        {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+        {% endif %}
+        <form action="{{ url_for('create_breed') }}" method="post">
+            <label for="name">Breed Name:</label>
+             <input type="text" id="name" name="name" value="{{ name if name else '' }}" required><br>
+
+            <label for="type">Type:</label>
+            <input type="text" id="type" name="type" value="{{ type if type else '' }}" required><br>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required>{{ description if description else '' }}</textarea><br>
+
+            <button type="submit">Add Breed</button>
+        </form>
+        <a href="{{ url_for('breeds') }}">Back to Breeds</a>
+    </main>
+{% endblock %}

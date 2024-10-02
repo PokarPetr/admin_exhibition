@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Add a Kitten{% endblock %}
+
+{% block content %}
+    <main>
+        <h1>Add a New Kitten</h1>
+        {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+        {% endif %}
+        <form action="{{ url_for('create_kitten') }}" method="post">
+            <label for="name">Code:</label>
+             <input type="text" id="nickname" name="nickname" value="{{ nickname if nickname else '' }}" required><br>
+
+            <label for="name">Kitten Name:</label>
+             <input type="text" id="name" name="name" value="{{ name if name else '' }}" required><br>
+
+            <select name="breed_id" id="breed">
+<!--            <option value="0">All Breeds</option>-->
+            {% for breed in breeds if breed.is_active %}
+               <option value="{{ breed.id }}">{{ breed.name }}</option>
+            {% endfor %}
+            </select>
+
+            <label for="age_months">Age:</label>
+            <input type="number" id="age_months" name="age_months" value="{{ age_months if age_months else '' }}" required><br>
+
+            <label for="color">Color:</label>
+            <input type="text" id="color" name="color" value="{{ color if color else '' }}" required><br>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required>{{ description if description else '' }}</textarea><br>
+
+            <button type="submit">Add Kitten</button>
+        </form>
+        <a href="{{ url_for('kittens') }}">Back to Kittens</a>
+    </main>
+{% endblock %}
