@@ -29,11 +29,9 @@ def test_add_kitten(test_db):
 
 
 def test_update_kitten(test_db, create_kittens):
-
+    kitten1, kitten2 = create_kittens
+    kitten_id = kitten1.id
     with TestingSessionLocal() as db:
-        kitten = db.query(Kitten).filter(Kitten.nickname == "KIT001").first()
-        kitten_id = kitten.id
-
         data_update = {
             "kitten_id": kitten_id,
             "name": "UpdateSphynx",
@@ -56,11 +54,11 @@ def test_update_kitten(test_db, create_kittens):
 
 def test_delete_kitten(test_db, create_kittens):
     with TestingSessionLocal() as db:
-        kitten = db.query(Kitten).filter(Kitten.nickname == "KIT001").first()
-        kitten_id = kitten.id
+        kitten1, kitten2 = create_kittens
+        kitten_id = kitten1.id
 
         response = client.post(f"/delete_kitten/{kitten_id}")
         assert response.status_code == 200
         db.expire_all()
-        deleted_kitten = db.query(Kitten).filter(Kitten.nickname == "KIT001").first()
+        deleted_kitten = db.query(Kitten).filter(Kitten.id == kitten_id).first()
         assert deleted_kitten.is_active == False
